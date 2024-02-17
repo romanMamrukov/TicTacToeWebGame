@@ -116,10 +116,10 @@ footer a:hover {
   text-decoration: none;
 }
 
-/* Responsive Styles */
-@media (max-width: 900px) {
+/* Responsive Styles small device */
+@media (max-width: 760px) {
   header {
-    top: 0;
+    top: 5%;
     font-size: 16px;
     left: 5%;
   }
@@ -135,7 +135,33 @@ footer a:hover {
 
   footer {
     font-size: small;
-    right: 0;
+    margin-right: 20px;
+  }
+
+  footer p {
+    margin: 0;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 900px) {
+  header {
+    top: 5%;
+    font-size: 16px;
+    left: 5%;
+  }
+
+  #scoreboard {
+    right: 5%;
+  }
+
+  #scoreboard p {
+    padding: 5px;
+    display: block;
+    font-size: large;
+  }
+
+  footer {
+    font-size: small;
     margin-right: 20px;
   }
 
