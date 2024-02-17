@@ -125,12 +125,11 @@ footer a:hover {
   }
 
   #scoreboard {
-    right: 5%;
-    bottom: 25%;
+    bottom: 5%;
   }
 
   #scoreboard p {
-    display: block;
+    padding: 5px;
     font-size: large;
   }
 
@@ -138,5 +137,9 @@ footer a:hover {
     font-size: small;
     right: 0;
     margin-right: 20px;
+  }
+
+  footer p {
+    margin: 0;
   }
 }
