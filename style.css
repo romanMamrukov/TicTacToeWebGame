@@ -115,3 +115,28 @@ footer a {
 footer a:hover {
   text-decoration: none;
 }
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+  header {
+    top: 0;
+    font-size: 16px;
+    left: 5%;
+  }
+
+  #scoreboard {
+    right: 5%;
+    bottom: 25%;
+  }
+
+  #scoreboard p {
+    display: block;
+    font-size: large;
+  }
+
+  footer {
+    font-size: small;
+    right: 0;
+    margin-right: 20px;
+  }
+}
