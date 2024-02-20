@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const board = document.getElementById('board');
     const cells = document.querySelectorAll('.cell');
-    const playerMode = document.getElementById('playerMode');
+    const modeSwitchText = document.getElementById('modeSwitchText');
     const modeSwitchBtn = document.getElementById('modeSwitchBtn');
     let currentPlayer = 'X';
     let winner = null;
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         winner = null;
         currentPlayer = 'X';
         moves = 0;
-        playerMode.innerText = isOnePlayerMode ? '1 V PC' : '1 V 1';
+        modeSwitchText.innerText = isOnePlayerMode ? '1 V PC' : '1 V 1';
 
         if (isOnePlayerMode && currentPlayer === 'O') {
             // In one-player mode, trigger computer move
@@ -66,14 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
             handleClick(winningMove);
             return;
         }
-    
+
         // Block the opponent from winning
         const blockingMove = findWinningMove('X');
         if (blockingMove !== null) {
             handleClick(blockingMove);
             return;
         }
-    
+
         // Prioritize center and corners, then random move
         const priorityMoves = [4, 0, 2, 6, 8];
         for (const move of priorityMoves) {
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
         }
-    
+
         // If no priority moves, make a random move
         const emptyCells = Array.from(cells).filter(cell => !cell.innerText);
         if (emptyCells.length > 0) {
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             handleClick(Number(computerMove.dataset.index));
         }
     };
-    
+
     const findWinningMove = (symbol) => {
         const lines = [
             [0, 1, 2],
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             [0, 4, 8],
             [2, 4, 6]
         ];
-    
+
         for (const line of lines) {
             const [a, b, c] = line;
             if (cells[a].innerText === symbol && cells[b].innerText === symbol && cells[c].innerText === '') {
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return a;
             }
         }
-    
+
         return null;
     };
 
@@ -122,25 +122,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!cells[index].innerText && !winner) {
             cells[index].innerText = currentPlayer;
             moves++;
-    
+
             winner = checkWinner();
-    
+
             if (winner) {
-                updateScore();
                 setTimeout(() => {
                     alert(`Player ${winner} wins!`);
+                    winner === 'X' ? scoreX++ : scoreO++;
+                    updateScore();
                     resetGame();
                 }, 100); // Delay the alert
             } else if (checkDraw()) {
-                updateScore();
                 setTimeout(() => {
                     alert('It\'s a draw!');
+                    scoreDraw++;
+                    updateScore();
                     resetGame();
                 }, 100); // Delay the alert
             } else {
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                playerMode.innerText = isOnePlayerMode ? '1 V PC' : '1 V 1';
-    
+
                 if (isOnePlayerMode && currentPlayer === 'O') {
                     // In one-player mode, trigger computer move
                     makeComputerMove();
@@ -156,9 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
     modeSwitchBtn.addEventListener('click', () => {
         isOnePlayerMode = !isOnePlayerMode;
         if (isOnePlayerMode) {
-            playerMode.innerText = '1 V PC';
+            modeSwitchText.innerText = '1 V PC';
         } else {
-            playerMode.innerText = '1 V 1';
+            modeSwitchText.innerText = '1 V 1';
         }
         resetGame();
     });
